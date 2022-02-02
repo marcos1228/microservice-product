@@ -1,6 +1,9 @@
 package com.product.config.jackson;
 
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JSONStringUtil {
 	private JSONStringUtil() {
 	}
@@ -11,8 +14,9 @@ public class JSONStringUtil {
 		try {
 			return json().writeValueAsString(object);
 		} catch (Exception e) {
-			// log.error(Constants.LOG_ERROR_DEFAULT, Constants.LOG_EVENT_ERROR,
-			// e.getMessage(), e.getCause());
+			log.info("ERROR DEFAULT");
+			 e.getMessage();
+			 e.getCause();
 			return null;
 		}
 	}
@@ -23,8 +27,9 @@ public class JSONStringUtil {
 			obj = MAPPER.readValue(jsonContent, clazz);
 			return obj;
 		} catch (Exception e) {
-			// log.error(Constants.LOG_ERROR_DEFAULT, Constants.LOG_EVENT_ERROR,
-			// e.getMessage(), e.getCause());
+			log.info("ERROR DEFAULT");
+			 e.getMessage();
+			 e.getCause();
 		}
 		return null;
 	}
