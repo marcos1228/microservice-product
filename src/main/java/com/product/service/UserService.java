@@ -1,17 +1,6 @@
 package com.product.service;
 
-import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.product.domain.dto.request.UserDtoRequest;
-import com.product.domain.dto.request.UserUpdateDtoRequest;
-import com.product.domain.dto.response.UserDtoResponse;
-import com.product.domain.model.User;
-import com.product.exception.BusinessException;
-import com.product.repository.UserRepository;
 
 @Service
 public class UserService {
