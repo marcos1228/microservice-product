@@ -13,6 +13,7 @@ import lombok.Data;
 
 @Data
 public class ProductUpdateDtoRequest {
+	
 	@ApiModelProperty(value = "Nome do Produto", example = "torsilax", required = true)
 	@NotBlank(message = "{attribute.name.notBlank}")
 	@NotNull(message = "{attribute.name.notNull}")

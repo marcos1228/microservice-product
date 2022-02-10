@@ -40,11 +40,12 @@ public class ProductDtoRequest {
 	@NotNull(message = "{attribute.theamount.notNull}")
 	@Positive(message = "{ttribute.theamount.positive}")
 	private BigDecimal theamount;
+	
 	@ApiModelProperty(value = "Categoria do produto", example = "MEDICAMENTO", required = true)
 	@NotNull(message = "{attribute.category.notNull}")
 	private CategoryEnum category;
+	
 	@ApiModelProperty(value = "Clasificação do produto", example = "GENERICO", required = true)
 	@NotNull(message = "{attribute.classification.notNull}")
 	private ClassificationEnum classification;
-
 }
