@@ -48,7 +48,7 @@ public class ProductController {
 			@ApiResponse(code = 500, message = "Erro interno do servidor") })
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDtoResponse> getProductById(@PathVariable Long id) {
-		log.info("The product return.");
+		log.info("Method={}  message={}", "getProductById", "buscando por id");
 		return ResponseEntity.ok().body(service.getProductById(id));
 	}
 
@@ -61,7 +61,7 @@ public class ProductController {
 	public ResponseEntity<ProductDtoResponse> save(@RequestBody @Valid ProductDtoRequest resquest) {
 		ProductDtoResponse save = service.save(resquest);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(save.getId()).toUri();
-		log.info("The product saved.");
+		log.info("Method={}  message={}", "save", "savando um produto");
 		return ResponseEntity.created(uri).body(save);
 	}
 
@@ -74,7 +74,7 @@ public class ProductController {
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDtoResponse> update(@PathVariable Long id,
 			@RequestBody @Valid ProductUpdateDtoRequest dto) {
-		log.info("The product updated.");
+		log.info("Method={}  message={} id=[{}]", "update", "atualizando um produto");
 		return ResponseEntity.ok().body(service.update(id, dto));
 	}
 
@@ -88,7 +88,7 @@ public class ProductController {
 			@PageableDefault(sort = "name", direction = Direction.ASC, page = 0, size = 5) Pageable pageable,
 			@RequestParam(required = false, defaultValue = "%") String name) {
 		Page<ProductDtoResponse> listProduct = service.findByName(name, pageable);
-		log.info("Offers will be listed in pageable form.");
+		log.info("Method={} message={}", "findByName", "lista produto");
 		return ResponseEntity.ok().body(listProduct);
 	}
 
@@ -98,7 +98,7 @@ public class ProductController {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		service.delete(id);
-		log.info("The product deleted");
+		log.info("Method={} message={} idProduct={}", "delete", "deleta um produto", id);
 		return ResponseEntity.noContent().build();
 	}
 }
