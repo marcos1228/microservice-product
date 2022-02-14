@@ -22,10 +22,9 @@ public class ProductDeleteQueueSender {
 	public void sendMessage(Product product) {
 		try {
 			rabbitTemplate.convertAndSend(this.queue ,product);
-			log.info("Sending product to {}", this.queue);
-			log.info("object sent {}", product);
+			log.info("Method={} IdProduct={}", "sendMessage", product.getId());
 		} catch (Exception e) {
-			log.info("throwing exception", e);
+			log.info("Method={} cause={} message={}", "sendMessage", e.getCause(), e.getMessage());
 		}
 	}
 }

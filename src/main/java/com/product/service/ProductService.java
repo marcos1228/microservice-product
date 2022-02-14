@@ -31,45 +31,45 @@ public class ProductService {
 
 	@Autowired
 	private ProductDeleteQueueSender productInativeQueueSender;
-	
+
 	@Autowired
 	private MessageBuilder messageBuilder;
 
 	public ProductDtoResponse getProductById(Long id) {
-		log.info("id [{}] will be for search for!", id);
-		Product product = repository.findById(id).orElseThrow(() -> new BusinessException(messageBuilder.getMessage("message.exception")));
-		log.warn("The return [{}]" , product);
+		log.info("Method={} idProduct={}", "getProductById", id);
+		Product product = repository.findById(id)
+				.orElseThrow(() -> new BusinessException(messageBuilder.getMessage("message.exception")));
 		return modelMapper.map(product, ProductDtoResponse.class);
 	}
 
 	@Transactional
 	public ProductDtoResponse save(ProductDtoRequest request) {
+		log.info("Method={}", "save");
 		Product product = modelMapper.map(request, Product.class);
-		log.info("Successfully saved!");
 		return modelMapper.map(repository.save(product), ProductDtoResponse.class);
 	}
 
 	@Transactional
 	public ProductDtoResponse update(Long id, ProductUpdateDtoRequest dto) {
-		Product product = repository.findById(id).orElseThrow(() -> new BusinessException(messageBuilder.getMessage("message.exception")));
-		log.info("id [{}] will be for updated by", id);
+		log.info("Method={} idProduct", "update", id);
+		Product product = repository.findById(id)
+				.orElseThrow(() -> new BusinessException(messageBuilder.getMessage("message.exception")));
 		modelMapper.map(dto, product);
-		log.warn("The updated [{}]" , product);
 		return modelMapper.map(repository.save(product), ProductDtoResponse.class);
 	}
 
 	public Page<ProductDtoResponse> findByName(String name, Pageable pageable) {
+		log.info("Method={}", "findByName");
 		Page<Product> list = repository.findByName(name, pageable);
-		log.info("Offers will be listed in pageable form.");
 		return list.map(item -> modelMapper.map(item, ProductDtoResponse.class));
 	}
 
 	@Transactional
 	public void delete(Long id) {
-		Product product = repository.findById(id).orElseThrow((() -> new BusinessException(messageBuilder.getMessage("message.exception"))));
-		log.info("The id delete [{}]", id);
+		log.info("Method={} idProduct={}", "delete", id);
+		Product product = repository.findById(id)
+				.orElseThrow((() -> new BusinessException(messageBuilder.getMessage("message.exception"))));
 		repository.delete(product);
-		log.warn("The product delete [{}]", product);
 		this.productInativeQueueSender.sendMessage(product);
 	}
 }
